@@ -5,7 +5,7 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### If you dont know how to use git
+### If you dont have git
 - git should already be installed on your mac, if not, install it, you can do it with brew
 - more info at https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 ```bash
