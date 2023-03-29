@@ -14,7 +14,7 @@ brew install git
 
 ### Clone this repo to your local machine
 ```bash
-git clone <this_repo>
+git clone https://github.com/JanLubojacky/valgrind-docker.git
 ```
 
 ### If you dont have docker
