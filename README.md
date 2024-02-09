@@ -12,24 +12,25 @@
 brew install git
 ```
 
-### Clone this repo to your local machine
+### Clone this repo to your machine
 ```bash
 git clone https://github.com/JanLubojacky/valgrind-docker.git
 ```
 
 ### If you dont have docker
+
+- you can either install it via docker desktop
+- for docker desktop you can simply start or close the docker app to start/close docker
+
+### or with colima
 ```bash
 brew install docker
 ```
 - if docker buildx is not part of your docker installation, you can install it with
-- if you installed docker with docker desktop, you dont need to install docker buildx
 ```bash
 brew install docker-buildx
 ```
-
-### Install colima
 - colima provides container runtimes
-- alternatively you can also use docker desktop
 - more info https://github.com/abiosoft/colima
 ```bash
 brew install colima
@@ -42,21 +43,38 @@ colima start
 ```bash
 colima stop
 ```
+- now docker ps should show you the list of running containers
+```sh
+docker ps
+```
 
 ### Docker image with C compiler and valgrind
-- After colima is installed, you can use docker commands
-- Pull a docker image with c compiler and valgrind from docker hub
-```bash
-docker pull dliu/ubuntu-gcc-valgrind
+- in folder with this Dockerfile, build the container
+```sh
+docker build .
+```
+- form arm architectures (m1 processor) select the arm platfrom
+```sh
+docker build --platform=linux/arm64 .
+```
+- enter the container shell, and mount the volume with your c code
+
+docker run -it -v /Users/lubojack/Personal/valgrind-docker/homework:/home c_container
+
+- And now you should be inside the container shell and can compile your code with
+
+```sh
+gcc -pedantic -Wall -Werror -std=c99 -g -o test test.c
 ```
 
-- Setup the paths inside Dockerfile to lead to your script
+- and run it with or without valgrind as
 
-### Running your code
-- `run_container.sh` is provided to build the container and compile & run your code with one command
-- your code is compiled when building the container and run when running the container
-- it will likely be necessary to make `run_container.sh` executable, you can do this with `chmod +x run_container.sh`
-- run the container
-```bash
-./run_container.sh
+```sh
+./test
 ```
+```sh
+valgrind --leak-check=full ./test
+```
+```
+- as the volume is mounted inside the container any changes made to the files inside
+- the container shell can be exited with <Control + D> or the `exit` command
