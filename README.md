@@ -51,16 +51,16 @@ docker ps
 ### Docker image with C compiler and valgrind
 - in folder with this Dockerfile, build the container
 ```sh
-docker build .
+docker build --tag valgrind .
 ```
 - form arm architectures (m1 processor) select the arm platfrom
 ```sh
-docker build --platform=linux/arm64 .
+docker build --platform linux/arm64 --tag valgrind .
 ```
 - enter the container shell, and mount the volume with your c code
-
+```sh
 docker run -it -v /Users/lubojack/Personal/valgrind-docker/homework:/home c_container
-
+```
 - And now you should be inside the container shell and can compile your code with
 
 ```sh
