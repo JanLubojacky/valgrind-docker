@@ -19,7 +19,8 @@ docker ps
 docker build --tag valgrind .
 ```
 
-- enter the container shell, and mount the volume with your c code, the path to your homework should be a full path, the command below assumes that you are running this from this folder
+- enter the container shell, and mount the volume with your c code, now changes made in your editor will be reflected in the container, the path to your homework should be a full path, the command below assumes that you are running this from this folder
+- you can modify the path to point to the folder with your homeworks
 ```sh
 docker run -it -v "$(pwd)"/homework:/home valgrind
 ```
