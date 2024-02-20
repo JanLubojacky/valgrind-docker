@@ -8,7 +8,3 @@ RUN apt-get upgrade -y
 RUN apt-get install build-essential make cmake valgrind -y
 
 WORKDIR /home
-#### Configure permission settings ####
-# RUN chmod ugo+rwx /root
-# RUN mkdir /valgrind && chmod ugo+rwx /valgrind
-# WORKDIR /valgrind/
