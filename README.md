@@ -19,47 +19,23 @@ git clone https://github.com/JanLubojacky/valgrind-docker.git
 
 ### If you dont have docker
 
-- you can either install it via docker desktop
+- you can install it via docker desktop [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
 - for docker desktop you can simply start or close the docker app to start/close docker
+- now docker ps should show you the list of running containers and not an error
 
-### or with colima
-```bash
-brew install docker
-```
-- if docker buildx is not part of your docker installation, you can install it with
-```bash
-brew install docker-buildx
-```
-- colima provides container runtimes
-- more info https://github.com/abiosoft/colima
-```bash
-brew install colima
-```
-- start colima
-```bash
-colima start
-```
-- and you can stop it with
-```bash
-colima stop
-```
-- now docker ps should show you the list of running containers
 ```sh
 docker ps
 ```
 
 ### Docker image with C compiler and valgrind
-- in folder with this Dockerfile, build the container
+- in folder with this Dockerfile, build the container and name it valgrind
 ```sh
 docker build --tag valgrind .
 ```
-- form arm architectures (m1 processor) select the arm platfrom
+
+- enter the container shell, and mount the volume with your c code, the path to your homework should be a full path, the command below assumes that you are running this from this folder
 ```sh
-docker build --platform linux/arm64 --tag valgrind .
-```
-- enter the container shell, and mount the volume with your c code
-```sh
-docker run -it -v /Users/lubojack/Personal/valgrind-docker/homework:/home c_container
+docker run -it -v "$(pwd)"/homework:/home valgrind
 ```
 - And now you should be inside the container shell and can compile your code with
 
@@ -72,6 +48,7 @@ gcc -pedantic -Wall -Werror -std=c99 -g -o test test.c
 ```sh
 ./test
 ```
+or
 ```sh
 valgrind --leak-check=full ./test
 ```
